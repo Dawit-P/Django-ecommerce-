@@ -21,7 +21,7 @@ It models Products, Purchase Orders, and Customer Invoices, with Django Admin cu
 1. Clone the repository:
 ```bash
 git clone https://github.com/Dawit-P/Django-ecommerce-.git
-cd django-ecommerce
+cd django-ecommerce```
 
 2.Create and activate a virtual environment:
 
