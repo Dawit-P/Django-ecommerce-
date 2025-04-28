@@ -15,38 +15,45 @@ It models Products, Purchase Orders, and Customer Invoices, with Django Admin cu
 - Export invoices to XLSX format.
 - Advanced ORM queries using annotations and conditional filters.
 
-
 ## Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/Dawit-P/Django-ecommerce-.git
-cd django-ecommerce```
+    ```bash
+    git clone https://github.com/Dawit-P/Django-ecommerce-.git
+    cd django-ecommerce
+    ```
 
-2.Create and activate a virtual environment:
-
-```bash
-python -m venv env
-source env/bin/activate  # On Windows: env\Scripts\activate
+2. Create and activate a virtual environment:
+    ```bash
+    python -m venv env
+    source env/bin/activate  # On Windows: env\Scripts\activate
+    ```
 
 3. Install dependencies:
-
-```bash
-pip install -r requirements.txt
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 4. Apply migrations:
-
-```bash
-python manage.py migrate
-
+    ```bash
+    python manage.py migrate
+    ```
 
 5. Create a superuser:
-
-```bash
-python manage.py createsuperuser
+    ```bash
+    python manage.py createsuperuser
+    ```
 
 6. Run the server:
+    ```bash
+    python manage.py runserver
+    ```
 
-```bash
-python manage.py runserver
+## Usage
 
+- Login to the Django Admin panel.
+- Manage Products, Purchase Orders, and Invoices.
+- Edit line items directly in the parent object page.
+- Use the custom admin actions to mark invoices as paid.
+- Export selected invoices to XLSX.
+- Overdue invoices are highlighted in red.
