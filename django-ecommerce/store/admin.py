@@ -2,6 +2,10 @@ from django.contrib import admin
 from django.db.models import Sum, F
 from django.utils.html import format_html
 from .models import *
+import openpyxl
+from openpyxl.utils import get_column_letter
+from django.http import HttpResponse
+
 
 class PurchaseOrderLineItemInline(admin.TabularInline):
     model = PurchaseOrderLineItem
@@ -52,6 +56,36 @@ class InvoiceAdmin(admin.ModelAdmin):
     
     # Export to Excel
     def export_to_xlsx(self, request, queryset):
-        # Implementation using openpyxl would go here
-        pass
-    export_to_xlsx.short_description = "Export to Excel"
+        
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Invoices"
+
+        # Define headers
+        headers = ['ID', 'Customer', 'Invoice Date', 'Due Date', 'Status', 'Total Amount']
+        ws.append(headers)
+
+        # Add invoice data
+        for invoice in queryset:
+            ws.append([
+                invoice.id,
+                str(invoice.customer),
+                invoice.invoice_date.strftime('%Y-%m-%d'),
+                invoice.due_date.strftime('%Y-%m-%d'),
+                invoice.status,
+                float(invoice.total_amount),
+            ])
+
+        # Format columns 
+        for i, _ in enumerate(headers, 1):
+            col_letter = get_column_letter(i)
+            ws.column_dimensions[col_letter].width = 20
+
+        # Create response
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = 'attachment; filename=invoices.xlsx'
+        wb.save(response)
+        return response
+
